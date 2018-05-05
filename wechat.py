@@ -7,7 +7,6 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 import random
-from wordcloud import WordCloud, ImageColorGenerator
 
 import os
 from matplotlib import pyplot as plt
@@ -21,7 +20,7 @@ def draw(datas):
     plt.title("Gender of lumang's friends")
     plt.show()
 
-def parse_friends():
+def parse_friedns():
     itchat.login()
     text = dict()
     friedns = itchat.get_friends(update=True)[0:]
@@ -43,39 +42,29 @@ def parse_friends():
 
           "不明性别好友： %.2f%%" % (float(text[other]) / total * 100))
     draw(text)
+
+
 def parse_signature():
     itchat.login()
-    siglist = []
-    friends = itchat.get_friends(update=True)[1:]
+    siglist=[]
+    friends=itchat.get_friends(update=True)[1:]
     for i in friends:
-        signature = i["Signature"].strip().replace("span", "").replace("class", "").replace("emoji", "")
-        rep = re.compile("1f\d+\w*|[<>/=]")
-        signature = rep.sub("", signature)
+        signature = i["signature"].strip().replace("span","").repalce("class","").replace("emoji","")
+        rep =re.compile("1f\d+\W*|[<>/=]")
+        signature = rep.sub("",signature)
         siglist.append(signature)
-    text = "".join(siglist)
-    with io.open('text.txt', 'a', encoding='utf-8') as f:
-        wordlist = jieba.cut(text, cut_all=True)
-        word_space_split = " ".join(wordlist)
+    text ="".join(siglist)
+    with io.open('text.txt','a',encoding='utf-8') as f:
+        wordlist=jieba.cut(text,cut_all=True)
+        word_space_split=" ".join(wordlist)
         f.write(word_space_split)
         f.close()
 
-
 def draw_signature():
-    text = open(u'text.txt', encoding='utf-8').read()
-    coloring = np.array(Image.open('1.png'))
-    my_wordcloud = WordCloud(background_color="white", max_words=2000,
-                         mask=coloring, max_font_size=60, random_state=42, scale=2,
-                         font_path="DroidSansFallbackFull.ttf").generate(text)
-    image_colors = ImageColorGenerator(coloring)
-    plt.imshow(my_wordcloud.recolor(color_func=image_colors))
-    plt.imshow(my_wordcloud)
-    plt.axis("off")
-    plt.show()
-
+    text = open(u'text.txt',encoding='utf-8').read()
+    color
 
 if __name__ == '__main__':
-    #parse_friends()
-    parse_signature()
-    draw_signature()
+    parse_friedns()
     
     
