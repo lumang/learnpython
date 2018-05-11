@@ -11,6 +11,7 @@ from wordcloud import WordCloud, ImageColorGenerator
 
 import os
 from matplotlib import pyplot as plt
+
 def draw(datas):
     for key in datas.keys():
         plt.bar(key, datas[key])
@@ -74,7 +75,9 @@ def draw_signature():
 
 
 if __name__ == '__main__':
-    #parse_friends()
+    # 获取好友性别比例
+    parse_friends()
+    # 词云展示
     parse_signature()
     draw_signature()
     
